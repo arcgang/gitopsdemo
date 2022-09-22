@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql-wp
+    type: back-end
+spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        type: back-end
+    template:
+      metadata:
+        name: mysql
+        labels:
+          app: mysql-wp
+          env: production
+          type: back-end
+      spec:
+          containers:
+          - name: mysql
+            image: mysql
+            ports:
+                - containerPort: 3306
+            env:
+                - name: MYSQL_USER
+                  value: "wp"
+                - name: MYSQL_ROOT_PASSWORD
+                  value: "redhat"
+
